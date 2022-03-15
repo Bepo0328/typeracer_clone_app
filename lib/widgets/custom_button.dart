@@ -5,7 +5,7 @@ class CustomButton extends StatelessWidget {
     Key? key,
     required this.text,
     required this.onPressed,
-    required this.isHome,
+    this.isHome = false,
   }) : super(key: key);
   final String text;
   final VoidCallback onPressed;
