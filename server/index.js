@@ -15,6 +15,10 @@ const DB = 'your db';
 // listening to socket io events from the client (flutter code)
 io.on('connection', (socket) => {
     console.log(socket.id);
+    
+    socket.on('test', (data) => {
+        console.log(data);
+    });
 });
 
 mongoose.connect(DB).then(() => {
