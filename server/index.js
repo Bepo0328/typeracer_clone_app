@@ -7,9 +7,15 @@ const mongoose = require('mongoose');
 const app = experss();
 const port = process.env.PORT || 3000;
 var server = http.createServer(app);
+var io = require('socket.io')(server);
 
 // connect to mongodb
 const DB = 'your db';
+
+// listening to socket io events from the client (flutter code)
+io.on('connection', (socket) => {
+    console.log(socket.id);
+});
 
 mongoose.connect(DB).then(() => {
     console.log('Connection Successful!');
