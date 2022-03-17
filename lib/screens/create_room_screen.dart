@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:typeracer_clone_app/utils/socket_client.dart';
 import 'package:typeracer_clone_app/utils/socket_methods.dart';
 import 'package:typeracer_clone_app/widgets/custom_button.dart';
 import 'package:typeracer_clone_app/widgets/custom_text_field.dart';
@@ -19,6 +18,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
   void initState() {
     super.initState();
     _socketMethods.updateGameListener(context);
+    _socketMethods.notCorrectGameListener(context);
   }
 
   @override
