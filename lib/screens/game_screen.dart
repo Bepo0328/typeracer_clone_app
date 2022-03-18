@@ -5,6 +5,7 @@ import 'package:typeracer_clone_app/providers/client_state_provider.dart';
 import 'package:typeracer_clone_app/providers/game_state_provider.dart';
 import 'package:typeracer_clone_app/utils/socket_methods.dart';
 import 'package:typeracer_clone_app/widgets/game_text_field.dart';
+import 'package:typeracer_clone_app/widgets/sentence_game.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({Key? key}) : super(key: key);
@@ -49,6 +50,7 @@ class _GameScreenState extends State<GameScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              const SentenceGame(),
               game.gameState['isJoin']
                   ? ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 800),
