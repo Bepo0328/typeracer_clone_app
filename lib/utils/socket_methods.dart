@@ -27,6 +27,13 @@ class SocketMethods {
     }
   }
 
+  sendUserInput(String value, String gameID) {
+    _socketClient.emit('userInput', {
+      'userInput': value,
+      'gameID': gameID,
+    });
+  }
+
   // listeners
   updateGameListener(BuildContext context) {
     _socketClient.on('updateGame', (data) {
