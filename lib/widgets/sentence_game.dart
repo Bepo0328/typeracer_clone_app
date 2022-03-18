@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:typeracer_clone_app/providers/game_state_provider.dart';
 import 'package:typeracer_clone_app/utils/socket_client.dart';
 import 'package:typeracer_clone_app/utils/socket_methods.dart';
+import 'package:typeracer_clone_app/widgets/scoreboard.dart';
 
 class SentenceGame extends StatefulWidget {
   const SentenceGame({Key? key}) : super(key: key);
@@ -81,8 +82,6 @@ class _SentenceGameState extends State<SentenceGame> {
         ),
       );
     }
-    return Container(
-      child: Text('score please'),
-    );
+    return const Scoreboard();
   }
 }
