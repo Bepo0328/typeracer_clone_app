@@ -55,7 +55,7 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
                 ),
                 const SizedBox(height: 30),
                 CustomTextField(
-                  controller: _nameController,
+                  controller: _gameIdController,
                   hintText: 'Enter Game ID',
                 ),
                 const SizedBox(height: 30),

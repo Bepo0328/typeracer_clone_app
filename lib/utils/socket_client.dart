@@ -6,7 +6,8 @@ class SocketClient {
   static SocketClient? _instance;
 
   SocketClient._internal() {
-    socket = IO.io('http://your.ip.address:3000', <String, dynamic>{
+    socket = IO.io(
+        'https://typeracer-clone-app-server.herokuapp.com', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });

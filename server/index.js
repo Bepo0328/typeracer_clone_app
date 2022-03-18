@@ -14,7 +14,7 @@ var server = http.createServer(app);
 var io = require('socket.io')(server);
 
 // connect to mongodb
-const DB = 'your db';
+const DB = 'mongodb+srv://test:test123@cluster0.wowgn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 // listening to socket io events from the client (flutter code)
 io.on('connection', (socket) => {
@@ -120,7 +120,7 @@ io.on('connection', (socket) => {
 
 const startGameClock = async (gameID) => {
     let game = await Game.findById(gameID);
-    game.startTime = new Date().gameTime();
+    game.startTime = new Date().getTime();
     game = await game.save();
 
     let time = 120;
