@@ -3,6 +3,7 @@ const { count } = require('console');
 const experss = require('express');
 const http = require('http');
 const mongoose = require('mongoose');
+const { start } = require('repl');
 const getSentence = require('./api/getSentence');
 const Game = require('./models/Game');
 
@@ -77,6 +78,13 @@ io.on('connection', (socket) => {
                 if (player.currentWordIndex !== game.words.length) {
                     game = await game.save();
                     io.to(gameID).emit('updateGame', game);
+                } else {
+                    let endTime = new Date().getTime();
+                    let {startTime} = game;
+                    player.WPM = calculateWPM(endTime, startTime, player);
+                    game = await game.save();
+                    socket.emit('done');
+                    io.to(gameID).emit('updateGame', game);
                 }
             }
         }
@@ -127,6 +135,25 @@ const startGameClock = async (gameID) => {
                 });
                 console.log(time);
                 time--;
+            } else {
+                (async () => {
+                    try {
+                        let endTime = new Date().getTime();
+                        let game = await Game.findById(gameID);
+                            let {startTime} = game;
+                            game.isOver = true;
+                            game.players.forEach((player, index) => {
+                                if(player.WPM === -1) {
+                                    game.players[index].WPM = calculateWPM(endTime, startTime, player);
+                                } 
+                            });
+                            game = await game.save();
+                            io.to(gameID).emit('updateGame', game);
+                            clearInterval(timerId);
+                    } catch(err) {
+                        console.log(err);
+                    }
+                })();
             }
             return gameIntervalFunc;
         })(), 
@@ -138,6 +165,14 @@ const calculateTime = (time) => {
     let min = Math.floor(time / 60);
     let sec = time % 60;
     return `${min}:${sec < 10 ? '0' + sec : sec}`;
+};
+
+const calculateWPM = (endTime, startTime, player) => {
+    const timeTakenInSec = (endTime - startTime) / 1000;
+    const timeTaken = timeTakenInSec / 60;
+    let wordsTyped = player.currentWordIndex;
+    const WPM = Math.floor(wordsTyped / timeTaken);
+    return WPM;
 };
 
 mongoose.connect(DB).then(() => {

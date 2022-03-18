@@ -68,16 +68,21 @@ class _SentenceGameState extends State<SentenceGame> {
     final game = Provider.of<GameStateProvider>(context);
     findPlayerMe(game);
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Wrap(
-        textDirection: TextDirection.ltr,
-        children: [
-          getTypedWords(game.gameState['words'], playerMe),
-          getCurrentWord(game.gameState['words'], playerMe),
-          getWordsToBeTyped(game.gameState['words'], playerMe),
-        ],
-      ),
+    if (game.gameState['words'].length > playerMe['currentWordIndex']) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Wrap(
+          textDirection: TextDirection.ltr,
+          children: [
+            getTypedWords(game.gameState['words'], playerMe),
+            getCurrentWord(game.gameState['words'], playerMe),
+            getWordsToBeTyped(game.gameState['words'], playerMe),
+          ],
+        ),
+      );
+    }
+    return Container(
+      child: Text('score please'),
     );
   }
 }
